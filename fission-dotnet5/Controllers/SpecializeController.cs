@@ -1,11 +1,8 @@
 ﻿#region header
 
-// /*
-//  * fission-dotnet5 - SpecializeController.cs
-//  *
-//  * Created by: avatar at 2020/12/29 12:10 AM.
-//  *
-//  */
+// fission-dotnet5 - SpecializeController.cs
+// 
+// Created by: Alistair J R Young (avatar) at 2020/12/29 12:10 AM.
 
 #endregion
 
@@ -14,6 +11,8 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+
+using Fission.DotNet.Properties;
 
 using JetBrains.Annotations;
 
@@ -31,6 +30,12 @@ namespace Fission.DotNet.Controllers
         private readonly ILogger<SpecializeController> logger;
         private readonly IFunctionStore                store;
 
+        public SpecializeController (ILogger<SpecializeController> logger, IFunctionStore store)
+        {
+            this.logger = logger;
+            this.store  = store;
+        }
+
         [NotNull]
         private static string CodePath
 #if DEBUG
@@ -38,12 +43,6 @@ namespace Fission.DotNet.Controllers
 #else
             => Resources.CodePath;
 #endif
-
-        public SpecializeController (ILogger<SpecializeController> logger, IFunctionStore store)
-        {
-            this.logger = logger;
-            this.store  = store;
-        }
 
         [HttpPost]
         [NotNull]

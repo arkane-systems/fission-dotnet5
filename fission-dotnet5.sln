@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fission-dotnet5", "fission-dotnet5\fission-dotnet5.csproj", "{7FDAA994-D65D-4525-8375-EE77CF150AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fission.Functions", "Fission.Functions\Fission.Functions.csproj", "{A04A5119-DEF9-467E-9ABC-5030F2EF38CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fission.Functions", "Fission.Functions\Fission.Functions.csproj", "{A04A5119-DEF9-467E-9ABC-5030F2EF38CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A91D1E8C-4FB8-4A18-90D4-BC94440CE5DC}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
