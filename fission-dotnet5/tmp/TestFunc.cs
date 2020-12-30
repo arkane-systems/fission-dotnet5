@@ -5,9 +5,9 @@ public class TestFunc : IFissionFunction
 {
     public object Execute(FissionContext context)
     {
-        // var x = Convert.ToInt32(context.Arguments["x"]);
-        // var y = Convert.ToInt32(context.Arguments["y"]);
-        // return (x + y).ToString();
-        return "Fluffy!";
+        context.Logger.WriteInfo ("Test message.");
+        var x = Convert.ToInt32(context.Arguments["x"]);
+        var y = Convert.ToInt32(context.Arguments["y"]); 
+        return (x + y);
     }
 }
