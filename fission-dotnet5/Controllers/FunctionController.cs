@@ -1,11 +1,8 @@
 ﻿#region header
 
-// /*
-//  * fission-dotnet5 - FunctionController.cs
-//  *
-//  * Created by: avatar at 2020/12/28 11:19 PM.
-//  *
-//  */
+// fission-dotnet5 - FunctionController.cs
+// 
+// Created by: Alistair J R Young (avatar) at 2020/12/28 11:19 PM.
 
 #endregion
 
@@ -24,6 +21,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 
 #endregion
 
@@ -97,7 +95,7 @@ namespace Fission.DotNet.Controllers
             }
         }
 
-        private FissionContext BuildContext ()
+        private FissionContext BuildContext (string packagePath = "")
         {
             // Logger
             var fl = new FissionLogger
@@ -108,10 +106,6 @@ namespace Fission.DotNet.Controllers
                          WriteCritical = (format, objects) => this.funcLogger.LogCritical (message: format, args: objects),
                      };
 
-            // body
-            // body as string
-            // headers
-
             // Arguments
             IQueryCollection qs = this.Request.Query;
 
@@ -119,22 +113,29 @@ namespace Fission.DotNet.Controllers
 
             foreach (var k in qs.Keys) args[key: k] = qs[key: k];
 
+            // Headers
+            var headers = new Dictionary<string, IEnumerable<string>> ();
+
+            foreach (KeyValuePair<string, StringValues> kv in this.Request.Headers)
+                headers.Add (key: kv.Key, value: kv.Value);
+
             // Request
             var fr = new FissionRequest
                      {
+                         Body              = this.Request.Body,
                          ClientCertificate = this.Request.HttpContext.Connection.ClientCertificate,
+                         Headers           = new ReadOnlyDictionary<string, IEnumerable<string>> (dictionary: headers),
                          Method            = this.Request.Method,
                          Url               = this.Request.GetEncodedUrl (),
                      };
 
-            // TODO: settings
-
             // Context
             var fc = new FissionContext
                      {
-                         Logger    = fl,
-                         Arguments = new ReadOnlyDictionary<string, string> (dictionary: args),
-                         Request   = fr,
+                         Logger      = fl,
+                         Arguments   = new ReadOnlyDictionary<string, string> (dictionary: args),
+                         Request     = fr,
+                         PackagePath = packagePath,
                      };
 
             return fc;
