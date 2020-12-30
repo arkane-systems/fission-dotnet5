@@ -23,6 +23,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Fission.DotNet.Controllers
 {
+    /// <summary>
+    ///     Controller to handle specializing the container to handle a particular Fission function.
+    /// </summary>
+    /// <remarks>
+    ///     Essentially, this handles fetching, compiling, and caching the function for later use by the
+    ///     <see cref="FunctionController" />.
+    /// </remarks>
     [Route (template: "/specialize")]
     [ApiController]
     public class SpecializeController : ControllerBase
@@ -30,20 +37,33 @@ namespace Fission.DotNet.Controllers
         private readonly ILogger<SpecializeController> logger;
         private readonly IFunctionStore                store;
 
+        /// <summary>
+        ///     Creates an instance of the <see cref="SpecializeController" />.
+        /// </summary>
+        /// <param name="logger">A logger instance for the <see cref="SpecializeController" />.</param>
+        /// <param name="store">The function store service. See <see cref="IFunctionStore" />.</param>
         public SpecializeController (ILogger<SpecializeController> logger, IFunctionStore store)
         {
             this.logger = logger;
             this.store  = store;
         }
 
+        /// <summary>
+        ///     The path to the function code to compile. In Debug builds, this invokes a built-in test function to simplify
+        ///     debugging without a container. In Release builds, this uses the mount path of the function package.
+        /// </summary>
         [NotNull]
         private static string CodePath
 #if DEBUG
-            => "tmp/TestFunc.cs";
+            => Resources.SpecializeController_TestCodePath;
 #else
-            => Resources.CodePath;
+            => Resources.SpecializeController_CodePath;
 #endif
 
+        /// <summary>
+        ///     Handle version 1 requests to specialize the container; i.e., to compile and cache a single-file function.
+        /// </summary>
+        /// <returns>200 OK on success; 500 Internal Server Error on failure.</returns>
         [HttpPost]
         [NotNull]
         public object Post ()
@@ -60,6 +80,7 @@ namespace Fission.DotNet.Controllers
                 var          compiler = new FissionCompiler ();
                 FunctionRef? binary   = compiler.Compile (source: source, errors: out List<string> errors);
 
+                // If compile failed, return error.
                 if (binary == null)
                 {
                     string? error = string.Join (separator: Environment.NewLine, values: errors);
@@ -74,6 +95,7 @@ namespace Fission.DotNet.Controllers
             }
             else
             {
+                // If file cannot be located, return error.
                 var error = $"Unable to locate function source code at '{SpecializeController.CodePath}'.";
 
                 this.logger.LogError (message: error);

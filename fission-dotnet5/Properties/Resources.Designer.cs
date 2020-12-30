@@ -61,11 +61,56 @@ namespace Fission.DotNet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FIS0001: No compatible type found during compilation..
+        /// </summary>
+        internal static string FissionCompiler_Compile_NoEntrypoint {
+            get {
+                return ResourceManager.GetString("FissionCompiler_Compile_NoEntrypoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to function invoked.
+        /// </summary>
+        internal static string FunctionController_Run_FunctionInvoked {
+            get {
+                return ResourceManager.GetString("FunctionController_Run_FunctionInvoked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to generic container: no requests supported.
+        /// </summary>
+        internal static string FunctionController_Run_GenericContainer {
+            get {
+                return ResourceManager.GetString("FunctionController_Run_GenericContainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot overwrite an existing function..
+        /// </summary>
+        internal static string FunctionStore_SetFunctionRef_CannotOverwrite {
+            get {
+                return ResourceManager.GetString("FunctionStore_SetFunctionRef_CannotOverwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /userfunc/user.
         /// </summary>
-        internal static string CodePath {
+        internal static string SpecializeController_CodePath {
             get {
-                return ResourceManager.GetString("CodePath", resourceCulture);
+                return ResourceManager.GetString("SpecializeController_CodePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tmp/TestFunc.cs.
+        /// </summary>
+        internal static string SpecializeController_TestCodePath {
+            get {
+                return ResourceManager.GetString("SpecializeController_TestCodePath", resourceCulture);
             }
         }
     }

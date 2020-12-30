@@ -117,8 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CodePath" xml:space="preserve">
+  <data name="FunctionStore_SetFunctionRef_CannotOverwrite" xml:space="preserve">
+    <value>Cannot overwrite an existing function.</value>
+  </data>
+  <data name="SpecializeController_CodePath" xml:space="preserve">
     <value>/userfunc/user</value>
     <comment>Path to the function source code.</comment>
+  </data>
+  <data name="SpecializeController_TestCodePath" xml:space="preserve">
+    <value>tmp/TestFunc.cs</value>
+    <comment>Path to the function source code (Debug builds).</comment>
+  </data>
+  <data name="FunctionController_Run_FunctionInvoked" xml:space="preserve">
+    <value>function invoked</value>
+  </data>
+  <data name="FunctionController_Run_GenericContainer" xml:space="preserve">
+    <value>generic container: no requests supported</value>
+  </data>
+  <data name="FissionCompiler_Compile_NoEntrypoint" xml:space="preserve">
+    <value>FIS0001: No compatible type found during compilation.</value>
   </data>
 </root>

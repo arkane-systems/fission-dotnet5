@@ -1,3 +1,11 @@
+#region header
+
+// fission-dotnet5 - Startup.cs
+// 
+// Created by: Alistair J R Young (avatar) at 2020/12/28 11:19 PM.
+
+#endregion
+
 #region using
 
 using JetBrains.Annotations;
@@ -12,8 +20,12 @@ using Microsoft.Extensions.Hosting;
 
 namespace Fission.DotNet
 {
+    /// <summary>
+    ///     Configure the environment container's web interface.
+    /// </summary>
     public class Startup
     {
+        [UsedImplicitly]
         public Startup (IConfiguration configuration) => this.Configuration = configuration;
 
         public IConfiguration Configuration { get; }
@@ -29,11 +41,8 @@ namespace Fission.DotNet
         public void Configure ([NotNull] IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment ()) app.UseDeveloperExceptionPage ();
-
             app.UseRouting ();
-
             app.UseAuthorization ();
-
             app.UseEndpoints (configure: endpoints => { endpoints.MapControllers (); });
         }
     }
